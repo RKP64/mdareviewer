@@ -24,7 +24,4 @@ uvicorn
 fastapi
 python-multipart
 PyPDF2
-python-jose[cryptography]
-passlib[bcrypt]
-opentelemetry
 markdown
