@@ -270,14 +270,7 @@ Your JSON list of search queries:"""
             f"IDENTIFIED CONTEXT SOURCES:\n---------------------\n{formatted_refs_str}\n---------------------\n\n"
             f"AGGREGATED CONTEXT:\n---------------------\n{summarized_context}\n---------------------\n\n"
             f"{final_instructions}\n\n"
-            f"SPECIFIC INSTRUCTIONS FOR YOUR RESPONSE (in addition to the general background provided):\n"
-            f"1. Directly address all parts of the ORIGINAL USER QUESTION.\n"
-            f"2. Synthesize information from the different context sections if they relate to different aspects of the original question.\n"
-            f"3. Format numerical data extracted from tables into an HTML table with borders (e.g., <table border='1'>...). Use table headers (<th>) and table data cells (<td>).\n"
-            f"4. **References are crucial.** At the end of your answer, include a 'References:' section listing the source documents (using filenames or titles as provided in 'IDENTIFIED CONTEXT SOURCES') from which the information was derived. If a URL is available for a source, make the filename/title a clickable hyperlink to that URL.\n\n"
-            f"COMPREHENSIVE ANSWER TO THE ORIGINAL USER QUESTION:\n"
-            f"*Crucially:* Include references for the information presented. Mention the specific source (e.g., the filename from the IDENTIFIED CONTEXT SOURCES list) and, if mentioned within the text context itself, include table numbers (e.g., 'Table 26') or section titles and the file name. Present these references clearly at the end of your answer under a 'References:' heading."
-            "\n\nANSWER:"
+           
         )
         
         # Add the word count instruction if provided (only for MDA Reviewer).
@@ -796,6 +789,7 @@ if __name__ == '__main__':
     except Exception as e:
         st.error(f"An critical unexpected error occurred: {e}")
         traceback.print_exc()
+
 
 
 
