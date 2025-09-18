@@ -26,4 +26,6 @@ python-multipart
 PyPDF2
 markdown
 python-docx
+beautifulsoup4
+
 
