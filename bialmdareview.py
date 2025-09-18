@@ -262,7 +262,7 @@ Your JSON list of search queries:"""
 3.  **Format Tables:** If you present data in a table, ensure it is a valid HTML table.
 4.  **Be Comprehensive:** Synthesize information from multiple sources to provide a full answer.
 5.  **If Unsure, State It:** If the context does not contain the answer, state that explicitly. Do not use outside knowledge.
-
+"""
         
         synthesis_prompt = (
             f"You are an AI assistant for Multiyear Tariff Submission for AERA.\n\n"
@@ -270,7 +270,7 @@ Your JSON list of search queries:"""
             f"IDENTIFIED CONTEXT SOURCES:\n---------------------\n{formatted_refs_str}\n---------------------\n\n"
             f"AGGREGATED CONTEXT:\n---------------------\n{summarized_context}\n---------------------\n\n"
             f"{final_instructions}\n\n"
-             f"SPECIFIC INSTRUCTIONS FOR YOUR RESPONSE (in addition to the general background provided):\n"
+            f"SPECIFIC INSTRUCTIONS FOR YOUR RESPONSE (in addition to the general background provided):\n"
             f"1. Directly address all parts of the ORIGINAL USER QUESTION.\n"
             f"2. Synthesize information from the different context sections if they relate to different aspects of the original question.\n"
             f"3. Format numerical data extracted from tables into an HTML table with borders (e.g., <table border='1'>...). Use table headers (<th>) and table data cells (<td>).\n"
@@ -795,6 +795,6 @@ if __name__ == '__main__':
         main_app_logic()
     except Exception as e:
         st.error(f"An critical unexpected error occurred: {e}")
-
         traceback.print_exc()
+
 
