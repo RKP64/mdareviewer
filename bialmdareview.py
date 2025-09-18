@@ -536,7 +536,7 @@ Your JSON list of search queries:"""
         "conv_agent_use_hybrid": True, "conv_agent_vector_field": DEFAULT_VECTOR_FIELD_NAME,
         "conv_agent_semantic_config": DEFAULT_SEMANTIC_CONFIG_NAME, "app_mode": "Conversational Agent",
         "mda_analysis_type": "MDA Manpower Analysis", "mda_report_content": None, "mda_report_sources": [],
-        "mda_chat_history": [], "web_search_engine": "Bing", "mda_word_count": 2000
+        "mda_chat_history": [], "web_search_engine": "Bing", "mda_word_count": 1500
     }
     for key, value in default_session_state.items():
         if key not in st.session_state: st.session_state[key] = value
@@ -796,5 +796,6 @@ if __name__ == '__main__':
     except Exception as e:
         st.error(f"An critical unexpected error occurred: {e}")
         traceback.print_exc()
+
 
 
