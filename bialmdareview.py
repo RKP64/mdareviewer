@@ -262,6 +262,37 @@ Your JSON list of search queries:"""
 3.  **Format Tables:** If you present data in a table, ensure it is a valid HTML table.
 4.  **Be Comprehensive:** Synthesize information from multiple sources to provide a full answer.
 5.  **If Unsure, State It:** If the context does not contain the answer, state that explicitly. Do not use outside knowledge.
+* **3.2. Source Attribution (Authority Data - Handling Terminology for Authority's Stance):**
+    If the query relates to the "Authority's" stance (e.g., user asks “What is the authority’s *approved* change?”, “What did the authority *decide*?”, “What was *proposed* by the authority?”), your primary goal is to find the authority's documented action or position on that specific subject *within the  .
+    * **Understanding Levels of Finality (for AI's internal logic):**
+        * **Final/Conclusive Terms:** "approved by the authority", "decided by the authority", "authority's decision", "final tariff/order states", "sanctioned by authority", "adopted by authority".
+        * **Provisional/Draft Terms:** "proposed by theauthority", "authority's proposal", "draft figures", "recommended by the authority" (if it's a recommendation for a later decision).
+        * **Analytical/Consideration Terms:** "considered by the authority", "analyzed by the authority", "examined by the authority", "authority's review/view/assessment/preliminary findings".
+    * **Extraction Strategy Based on User Intent and Document Content:**
+        1.  **Attempt to Match User's Exact Term First:** Always search the CONTEXT for information explicitly matching the user's specific terminology (e.g., if the user asks for "approved," look first for "approved by the authority"). If found, present this.
+        2.  **If User's Query Implies Finality (e.g., asks for "approved," "final figures," "decision"):**
+            * And their *exact term* is NOT found in the CONTEXT for that item:
+                * **Prioritize searching the CONTEXT for other Final/Conclusive terms** (e.g., "decided by the authority," "authority's decision"). If one of these is found, present this. You MUST then state clearly: "You asked for 'approved.' The document describes what was '*[actual term found, e.g., decided by the authority]*' as follows: [data and references]."
+                * If no Final/Conclusive terms are found for that item in the CONTEXT, then (and only then) look for Provisional/Draft terms (e.g., "proposed by the authority"). If found, present this, stating: "You asked for 'approved.' A final approval or decision was not found for this item in the provided context. However, the authority '*proposed*' the following: [data and references]."
+                * If neither of the above is found, look for Analytical/Consideration terms and report similarly with clarification.
+        3.  **If User's Query Uses a Provisional/Draft Term (e.g., "proposed"):**
+            * Prioritize finding information matching those Provisional/Draft terms in the CONTEXT.
+            * If not found, you can then look for Analytical/Consideration terms, clarifying the terminology. Avoid presenting Final/Conclusive terms unless you explicitly state that the user asked for a draft but a final version was found regarding that specific point.
+        4.  **If User's Query Uses an Analytical/Consideration Term (e.g., "considered"):**
+            * Prioritize finding information matching those terms. Always give me the table refrence for the response i mean which table no you have refered for the response
+    * **Accurate Reporting is Key:** Always present information using the **document's actual terminology**. Clearly explain if and how it relates to the user's original query terms. If multiple relevant stages of authority action are evident in the CONTEXT (e.g., a proposal and then a later decision), you may summarize both, clearly distinguishing them by the terms used in the document.
+    * **If No Relevant Authority Action Found:** If the provided CONTEXT contains no clear information matching any relevant stage of authority action (final, provisional, or analytical) regarding the specific subject of the query, state that this information was not found for the authority in the provided context.
+    * **Table Headers:** Use data from tables if their headers clearly indicate the source and nature of the data (e.g., "Figures as Decided by the Authority," "Operator's Proposed Traffic").
+"**Crucial Instruction for Authority's Stance:** When the user asks for 'approved', 'final', or 'decided' figures from the Authority, it is **imperative** that you prioritize extracting text explicitly labeled with terms like 'decided by the authority' or 'approved by the authority' from the CONTEXT. If such conclusive terms are present for the queried item, present them. Only if NO such conclusive terms are found in the CONTEXT for that item should you then present information labeled 'proposed by the authority', and you MUST clearly state that you are providing 'proposed' figures because 'approved/decided' ones were not found in the given context."
+* **Clarifying "Considered by Authority" in a "True-Up" Context:**
+    * If the user query asks what the authority 'considered' in relation to a 'true-up' of a specific control period:
+        * First, check if the CONTEXT contains information about the authority's **analysis or verification of the actual figures submitted for that true-up period**. If so, present this.
+        * If the user's query might also imply understanding the **original baseline** that is being trued-up against, you can additionally (or if the above is not found) look for what the authority **originally considered or determined when setting the tariffs for that control period at the beginning of that period**.
+        * **Crucially, always differentiate these two.** For example: "For the true-up of the Third Control Period, DIAL submitted the following actual traffic figures (e.g., from Table 25): [data]. The figures that the Authority had originally considered at the time of determining the tariff for the Third Control Period were (e.g., from Table 26): [data]."
+        * If the query is simply "What was considered for true-up..." without specifying "original determination" vs "actuals review", and both types of information are in the context, you might offer both or ask the user to clarify which aspect of "considered for true-up" they are interested in Mandatory Table Referencing:
+For any data, figures, or claims extracted from a table within the CONTEXT, you must cite the corresponding table number in your response. This is a strict requirement for all outputs. The reference should be placed directly with the data it pertains to.
+Example 1: "The Authority approved Aeronautical Revenue of ₹1,500 Cr for FY 2024-25 (Table 15)."
+Example 2: "For the true-up, the operator submitted actual passenger traffic of 45 million (as per Table 3.2), while the original figure considered by the Authority was 42 million (from Table 5.1 of the original Order)
 """
         
         synthesis_prompt = (
@@ -270,6 +301,14 @@ Your JSON list of search queries:"""
             f"IDENTIFIED CONTEXT SOURCES:\n---------------------\n{formatted_refs_str}\n---------------------\n\n"
             f"AGGREGATED CONTEXT:\n---------------------\n{summarized_context}\n---------------------\n\n"
             f"{final_instructions}\n\n"
+             f"SPECIFIC INSTRUCTIONS FOR YOUR RESPONSE (in addition to the general background provided):\n"
+            f"1. Directly address all parts of the ORIGINAL USER QUESTION.\n"
+            f"2. Synthesize information from the different context sections if they relate to different aspects of the original question.\n"
+            f"3. Format numerical data extracted from tables into an HTML table with borders (e.g., <table border='1'>...). Use table headers (<th>) and table data cells (<td>).\n"
+            f"4. **References are crucial.** At the end of your answer, include a 'References:' section listing the source documents (using filenames or titles as provided in 'IDENTIFIED CONTEXT SOURCES') from which the information was derived. If a URL is available for a source, make the filename/title a clickable hyperlink to that URL.\n\n"
+            f"COMPREHENSIVE ANSWER TO THE ORIGINAL USER QUESTION:\n"
+            f"*Crucially:* Include references for the information presented. Mention the specific source (e.g., the filename from the IDENTIFIED CONTEXT SOURCES list) and, if mentioned within the text context itself, include table numbers (e.g., 'Table 26') or section titles and the file name. Present these references clearly at the end of your answer under a 'References:' heading."
+            "\n\nANSWER:"
         )
         
         # Add the word count instruction if provided (only for MDA Reviewer).
@@ -787,4 +826,5 @@ if __name__ == '__main__':
         main_app_logic()
     except Exception as e:
         st.error(f"An critical unexpected error occurred: {e}")
+
         traceback.print_exc()
