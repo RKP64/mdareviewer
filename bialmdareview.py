@@ -651,12 +651,6 @@ Your JSON list of search queries:"""
                 """,
             },
 
-            "MDA Manpower fourth control Period KPI Analysis": {
-                "Comprehensive Manpower  Analysis": f"""
-                1-For the fourth control period, calculate and compare the personnel expenses per passenger traffic for DIAL MIAL and BIAL using their submitted projections for total personnel expenses and passenger traffic for fourth control period and provide a detailed rationale explaining the differences in this specific efficiency metric.
-                      
-                """,
-            },
 
              "MDA Manpower third control period  Analysis": {
                 "Comprehensive Manpower  Analysis": f"""
@@ -902,6 +896,7 @@ if __name__ == '__main__':
     except Exception as e:
         st.error(f"An critical unexpected error occurred: {e}")
         traceback.print_exc()
+
 
 
 
