@@ -651,7 +651,17 @@ Your JSON list of search queries:"""
                 """,
             },
 
+          "MDA Manpower fourth control Period KPI Analysis": {
+                "Comprehensive Manpower  Analysis": f"""
+                1- calculate the manpower expenditure per total passenger traffic and manpower count per total passenger traffic for BIAL for fourth control period along with justification provided by BIAL in the MDA_personnel document.
+                2- Calculate the manpower expenditure per total passenger traffic and manpower count per total passenger traffic for DIAL for fourth control period in DIAL fourth control period consultation paper along with justification provided by DIAL and Authority.
+                3- Calculate the manpower expenditure per total passenger traffic and manpower count per total passenger traffic for MIAL for fourth control period in MIAL fourth control period consultation paper along with justification provided by MIAL and Authority.
+                4- Compare the manpower expenditure per total passenger traffic and manpower count per total passenger traffic for BIAL, DIAL and MIAL.
+                      
+                """,
+            },
 
+            
              "MDA Manpower third control period  Analysis": {
                 "Comprehensive Manpower  Analysis": f"""
                 1- Actual manpower expenditure for BIAL and variance from authority approved manpower expenditure for the third control period along with justification provided by BIAL and Authority 
@@ -663,25 +673,45 @@ Your JSON list of search queries:"""
 
             "Utility Analysis for Electricity": {
                 "Comprehensive Electricity Analysis for third control period": f"""
-                1- year on year actual power consumption actual recoveries from power consumption by BIAL in third control period in utlities_mda _document along with justification provided by BIAL in the utlities_mda_document. 
-                2- From the fourth control period consultation paper, extract the year-on-year electricity consumption and the corresponding recovery from the electricity sub-concessionaire submitted by DIAL for the true-up of the third control period, including the justifications provided by both DIAL and the Authority for these figures
-                3- From the MIAL fourth control period consultation paper, provide the year-on-year electricity cost, gross consumption, and recoveries submitted by MIAL for the true-up of the third control period, along with MIAL's justification for the variance in actual electricity cost from the authority's approved figures and the authority's own examination and rationale on the matter.
-                4- Conduct a comparative analysis of electricity metrics from the third control period true-up for DIAL, MIAL, and BIAL. Specifically, compare DIAL's electricity consumption, MIAL's electricity cost, and BIAL's actual power cost consumption  in utlities_mda document . Based on this data, formulate a detailed rationale that explains any significant trends or performance differences between the airports, providing clear reasons for your conclusions.
-                """,
+                 1- Actual electricity consumption, electricity expenditure, actual recoveries by BIAL in true up of third control period in Utilities_MDA document along with justification provided by BIAL in the Utliites_MDA document.
+
+                2- Actual electricity consumption, electricity expenditure, actual recoveries by DIAL in the true up of third control period along with justification or rationale provided by DIAL and the Authority for these figures
+
+                3- Actual electricity consumption, electricity expenditure, actual recoveries by MIAL in the true up of third control period along with justification or rationale provided by MIAL and the Authority for these figures
+
+                4- Conduct a comparative analysis of electricity consumption, electricity expenditure, actual recoveries for the third control period for DIAL, MIAL, and BIAL. Based on this comparison, comment if BIAL is higher, lower or in line with peer benchmarks.""",
                 
             }, 
 
 
              "Utility Analysis for water": {
                 "Comprehensive Water Analysis for third control period": f"""
-                1- From the Utlities_cost_MDA document for the third control period true-up, extract the year-on-year actual cost, consumption, and recoveries for portable and raw water, along with BIAL's complete justification for the water expense and the variance from the authority's approved figures. 
-                2- Year on Year  water gross charge submitted by DIAL for true up of third control period in the DIAL fourth control period consultation paper. 6- Year on Year growth of water consumption submitted by DIAL for third control period in the DIAL fourth control period consultation paper. 7- Year on Year actual recoveries from sub- concessionaire submitted by DIAL for third control period in the DIAL fourth control period consultation paper. 8- Justification for actual  gross water charge  in third control period in the DIAL fourth control period consultation paper provided by DIAL and the variance with authority approved figures. 9- Examination and rationale provided by authority on actual water gross charge and consumption submitted by DIAL for third control period in the DIAL fourth control period consultation paper.
-                3-From the MIAL fourth control period consultation paper for the true-up of the third control period, extract the year-on-year water expense, consumption, and recoveries, along with the justification provided by MIAL for the variance from approved figures, and the Authority's final examination and rationale on the submission.
-                4-Develop a set of actionable recommendations to enhance the justification for BIAL's third control period water expenditure in Utilities_cost_MDA Document. For each recommendation, provide a specific reason, citing relevant best practices from the justifications and rationale provided by DIAL and MIAL in their respective fourth consultation paper.
-                """,
+                1- Actual water consumption, water expenditure, actual recoveries by BIAL in true up of third control period in Utlities_cost_mda document along with justification provided by BIAL in the Utilities_cost_mda document.
+
+                2- Actual water consumption, water expenditure, actual recoveries by DIAL in the true up of third control period along with justification or rationale provided by DIAL and the Authority for these figures
+
+                3- Actual water consumption, water expenditure, actual recoveries by MIAL in the true up of third control period along with justification or rationale provided by MIAL and the Authority for these figures
+
+                4- Conduct a comparative analysis of water consumption, water expenditure, actual recoveries for the third control period for DIAL, MIAL, and BIAL. Based on this comparison, comment if BIAL is higher, lower or in line with peer benchmarks.""",
                 
             }, 
             
+             "Utility KPI Analysis for Electricity": {
+                "Comprehensive KPI for Electricty Analyis regarding third control period": f"""
+               1- Calculate and compare the net power cost per total passenger traffic from the utilties cost MDA document for BIAL in the true up of third control period with electricity cost or power cost per total passenger traffic from consultation paper for DIAL and MIAL in the true up of third control period
+
+                2- Calculate and compare the total net electricity consumption per total passenger traffic from the utilties cost MDA document for BIAL in the true up of third control period with net electricity consumption per total passenger traffic from consultation paper for DIAL and MIAL in the true up of third control period.""",
+     
+            }, 
+
+            "Utility KPI Analysis for Water": {
+                "Comprehensive KPI for Water Analyis regarding third control period": f"""
+                1- Calculate and compare the net water cost per total passenger traffic from the utilties cost MDA document for BIAL in the true up of third control period with water cost per total passenger traffic from consultation paper for DIAL and MIAL in the true up of third control period
+
+                 2- Calculate and compare the total net water consumption per total passenger traffic from the utilties cost MDA document for BIAL in the true up of third control period with net water consumption per total passenger traffic from consultation paper for DIAL and MIAL in the true up of third control period.""",
+              
+     
+            }, 
             
             # Empty dictionaries for category placeholders
             "R&M Analysis for third control Period": {
@@ -896,6 +926,7 @@ if __name__ == '__main__':
     except Exception as e:
         st.error(f"An critical unexpected error occurred: {e}")
         traceback.print_exc()
+
 
 
 
